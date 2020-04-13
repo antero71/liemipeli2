@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from game_stats import GameStats
 from wizard import Wizard
+from info import Info
 
 class WizardsBroth:
     """Overal class to manage game assist and behavior"""
@@ -18,11 +19,12 @@ class WizardsBroth:
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
 
-        pygame.display.set_caption("Liemipeli")
+        pygame.display.set_caption(self.settings.game_name)
         self.wizard = Wizard(self)
 
         # Create an instance to game statistics
         self.stats = GameStats(self)
+        self.info = Info(self)
 
         # Set the background color.
         self.bg_color=(150,230,150)
@@ -77,6 +79,9 @@ class WizardsBroth:
         # Redraw the screen during each pass through the loop.
         self.screen.fill(self.settings.bg_color)
         self.wizard.blitme()
+
+        if not self.stats.game_active:
+            self.info.show_start_message()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
