@@ -5,6 +5,7 @@ from settings import Settings
 from game_stats import GameStats
 from wizard import Wizard
 from info import Info
+from item import Item
 
 class WizardsBroth:
     """Overal class to manage game assist and behavior"""
@@ -25,6 +26,7 @@ class WizardsBroth:
         # Create an instance to game statistics
         self.stats = GameStats(self)
         self.info = Info(self)
+        self.item = Item(self,1)
 
         # Set the background color.
         self.bg_color=(150,230,150)
@@ -79,6 +81,7 @@ class WizardsBroth:
         # Redraw the screen during each pass through the loop.
         self.screen.fill(self.settings.bg_color)
         self.wizard.blitme()
+        self.item.blitme()
 
         if not self.stats.game_active:
             self.info.show_start_message()

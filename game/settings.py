@@ -13,3 +13,5 @@ class Settings:
 
         # Wizard settings
         self.wizard_speed = 3
+
+        self.game_name = 'Liemipeli'
