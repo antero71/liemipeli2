@@ -13,7 +13,7 @@ class WizardsBroth:
     def __init__(self):
         pygame.init()
 
-        self.settings = Settings()
+        self.settings = Settings(self)
 
         self.screen = pygame.display.set_mode((0, 0),
                                               pygame.FULLSCREEN)
@@ -43,9 +43,6 @@ class WizardsBroth:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -64,7 +61,6 @@ class WizardsBroth:
         elif event.key == pygame.K_LEFT:
             self.wizard.moving_left = True
         elif event.key == pygame.K_q:
-            # self._write_high_score()
             sys.exit()
         elif event.key == pygame.K_UP:
             self.wizard.moving_up = True
@@ -72,6 +68,10 @@ class WizardsBroth:
             self.wizard.moving_down = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_o:
+            self.stats.more_info = True
+        elif event.key == pygame.K_ESCAPE:
+            self.stats.more_info = False
         elif event.key == pygame.K_p:
             if not self.stats.game_active:
                 #self._reset_and_start_game()
@@ -83,8 +83,11 @@ class WizardsBroth:
         self.wizard.blitme()
         self.item.blitme()
 
-        if not self.stats.game_active:
-            self.info.show_start_message()
+        if not self.stats.game_active and not self.stats.more_info:
+            self.info.show_message(self.settings.start_message)
+
+        if self.stats.more_info:
+            self.info.show_message(self.settings.instructions)
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
