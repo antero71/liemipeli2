@@ -6,6 +6,8 @@ from game_stats import GameStats
 from wizard import Wizard
 from info import Info
 from item import Item
+from inventory import Inventory
+from inventory_window import InventoryWindow
 
 class WizardsBroth:
     """Overal class to manage game assist and behavior"""
@@ -22,6 +24,8 @@ class WizardsBroth:
 
         pygame.display.set_caption(self.settings.game_name)
         self.wizard = Wizard(self)
+        self.inventory = Inventory(self)
+        self.inventory_window = InventoryWindow(self)
 
         # Create an instance to game statistics
         self.stats = GameStats(self)
@@ -31,13 +35,19 @@ class WizardsBroth:
         # Set the background color.
         self.bg_color=(150,230,150)
 
+    def _reset_and_start_game(self):
+        self.stats.game_active = True
+        self.inventory.items = []
+        self.inventory_window.prep_inventory()
+
+    def _pick_up_item(self):
+        print("Täällä ei ole mitään kerättävää")
+
     def _check_events(self):
         # Watch for keyboard and mouse events.
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                #print("next write high score")
-                #self._write_high_score()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -67,21 +77,28 @@ class WizardsBroth:
         elif event.key == pygame.K_DOWN:
             self.wizard.moving_down = True
         elif event.key == pygame.K_SPACE:
-            self._fire_bullet()
+            self._pick_up_item()
         elif event.key == pygame.K_o:
             self.stats.more_info = True
         elif event.key == pygame.K_ESCAPE:
             self.stats.more_info = False
+            self.stats.show_inventory = False
         elif event.key == pygame.K_p:
             if not self.stats.game_active:
-                #self._reset_and_start_game()
-                self.stats.game_active = True
+                self._reset_and_start_game()
+        elif event.key == pygame.K_t:
+            self.stats.show_inventory = True
+
 
     def __update_screen(self):
         # Redraw the screen during each pass through the loop.
         self.screen.fill(self.settings.bg_color)
         self.wizard.blitme()
         self.item.blitme()
+
+
+        if self.stats.show_inventory:
+            self.inventory_window.show_inventory()
 
         if not self.stats.game_active and not self.stats.more_info:
             self.info.show_message(self.settings.start_message)
