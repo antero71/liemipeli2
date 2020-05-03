@@ -22,11 +22,10 @@ lataa zip-paketin koneellesi. Pura paketti sopivaan hakemistoon.
 Avaa komentotulkki painamalla Windows-painiketta ja kirjoittamalla `cmd`
 ja painamlla enter.
 
-Siirry hakemistoon johon purit lataamasi zip -tiedoston. komennolla `cd c:\hakemisto\liemipeli-master\game`
+Siirry hakemistoon johon purit lataamasi zip -tiedoston komennolla `cd c:\hakemisto\liemipeli-master\game`
 
-Tässä hakemistossa pitää ensin antaa komento `pip install -r requirements.txt` joka asentaa pelissä käytetyn
-[pygame](https://www.pygame.org/news) kirjaston koneellesi, jotta peli käynnistyy.
-Tämän jälkeen peli käynnistetään komennolla `python wizards_broth.py`. Jos sinulla on ennestään vanhempi 
+Asenna pelin käyttämät kirjastot koneellesi komennolla `pip install -r requirements.txt`. Peli on rakennettu korjaston [pygame](https://www.pygame.org/news) päälle.
+Kirjason asennuksen jälkeen peli käynnistetään komennolla `python wizards_broth.py`. Jos sinulla on ennestään vanhempi 
 python 2 -versio koneellasi, saatat joutua antamaan komennon `python3 wizards_broth.py`, jotta peli käynnistyy.
 
 Pythonin version saat selville antamalla komennon `python --version`.
