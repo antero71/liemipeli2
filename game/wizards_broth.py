@@ -127,7 +127,7 @@ class WizardsBroth:
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
-    
+
     def _check_can_pick(self):
         if pygame.sprite.spritecollideany(self.wizard, self.items):
             self.stats.can_pick_up = True
