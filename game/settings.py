@@ -16,4 +16,4 @@ class Settings:
 
         self.game_name = 'Liemipeli'
         self.start_message = f"Voit aloittaa pelin {self.game_name} painamalla 'p'. Peli lopetetaan painamalla 'q'. Lisätietoa saat painamalla 'o'"
-        self.instructions = f"Ohjaa Velhoa nuolinäppäimillä, kun kohtaat esineen, voit poimia sen painamalla välilyönti-näppäintä."
+        self.instructions = f"Ohjaa Velhoa nuolinäppäimillä, kun kohtaat esineen, voit poimia sen painamalla välilyönti-näppäintä.\nPainamalla t-näppäintä näet mitä sinulla on taskuissa."
