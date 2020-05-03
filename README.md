@@ -34,8 +34,8 @@ Pythonin version saat selville antamalla komennon `python --version`.
 Peli käynnistyy painamalla `p`.
 Pelaajaa siirretään nuolinäppäimillä.
 Peliohjeita saa näkyviin painamalla `o` ja ohjeet saa pois näkyvistä `esc` näppäimellä.
-Peli lopetaan ´q´ -näppäintä painamalla.
-Taskujen sisältö tarkistetaan ´t´ näppäimellä.
+Peli lopetaan `q` -näppäintä painamalla.
+Taskujen sisältö tarkistetaan `t` näppäimellä.
 
 ## Versionhallinta
 
