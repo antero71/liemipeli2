@@ -1,5 +1,6 @@
 import sys
 import pygame
+import random
 
 from settings import Settings
 from game_stats import GameStats
@@ -30,10 +31,22 @@ class WizardsBroth:
         # Create an instance to game statistics
         self.stats = GameStats(self)
         self.info = Info(self)
-        self.item = Item(self,1)
+        self.items = pygame.sprite.Group()
+        self._create_items()
+
 
         # Set the background color.
         self.bg_color=(150,230,150)
+
+    def _create_items(self):
+        count = 3 #random.randint(1,3)
+        print(f"count {count}")
+        for i in range(count):
+            item = Item(self, random.randint(0,2))
+            item_width, item_height = item.rect.size
+            item.x = random.randint(0,self.settings.screen_width - 20)
+            item.y = random.randint(0,self.settings.screen_height - 20 )
+            self.items.add(item)
 
     def _reset_and_start_game(self):
         self.stats.game_active = True
@@ -41,7 +54,10 @@ class WizardsBroth:
         self.inventory_window.prep_inventory()
 
     def _pick_up_item(self):
-        print("Täällä ei ole mitään kerättävää")
+        if self.stats.can_pick_up:
+            print("voidaan nostaa")
+        else:
+            print("Täällä ei ole mitään kerättävää")
 
     def _check_events(self):
         # Watch for keyboard and mouse events.
@@ -53,6 +69,8 @@ class WizardsBroth:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -94,7 +112,7 @@ class WizardsBroth:
         # Redraw the screen during each pass through the loop.
         self.screen.fill(self.settings.bg_color)
         self.wizard.blitme()
-        self.item.blitme()
+        self.items.draw(self.screen)
 
 
         if self.stats.show_inventory:
@@ -109,6 +127,14 @@ class WizardsBroth:
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
+    
+    def _check_can_pick(self):
+        if pygame.sprite.spritecollideany(self.wizard, self.items):
+            self.stats.can_pick_up = True
+        else:
+            self.stats.can_pick_up = False
+
+
     def run_game(self):
         """Start the main loop for game."""
         while True:
@@ -116,6 +142,7 @@ class WizardsBroth:
 
             if self.stats.game_active:
                 self.wizard.update()
+                self._check_can_pick()
 
             self.__update_screen()
 

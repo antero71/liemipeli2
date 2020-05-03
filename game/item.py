@@ -9,7 +9,7 @@ class Item(Sprite):
         self.settings = ai_game.settings
 
         if item_type == 0:
-            self.image = pygame.image.load('pictures/mushroom.bmp')
+            self.image = pygame.image.load('pictures/mushroom.png')
         elif item_type == 1:
             self.image = pygame.image.load('pictures/dragon.png')
         elif item_type == 2:
